@@ -49,6 +49,7 @@ function Modal(uiModal) {
         canvas_width: undefined,
         canvas_height: undefined,
         severity: undefined,
+        //validation: undefined,
         temporary: undefined,
         description: undefined,
         user_validation: undefined,

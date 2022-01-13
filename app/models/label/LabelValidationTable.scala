@@ -209,6 +209,20 @@ object LabelValidationTable {
   }
 
   /**
+   * Gets the current validation counts for the label defaulting to 0 if they do not exist
+   */
+  def getValidationCountsForLabel(labelId: Int): JsObject = db.withTransaction { implicit session =>
+    val counts: (Int, Int, Int) =
+      labels.filter(_.labelId === labelId)
+        .map(l => (l.agreeCount, l.disagreeCount, l.notsureCount)).first
+
+    Json.obj(
+      "agree_count" -> counts._1,
+      "disagree_count" -> counts._2,
+      "not_sure_count" -> counts._3
+    )
+  }
+  /**
    * Calculates and returns the user accuracy for the supplied userId. The accuracy calculation is performed if and only
    * if the 10 of the user's labels have been validated. A label is considered validated if it has either more agree
    * votes than disagree votes, or more disagree votes than agree votes.

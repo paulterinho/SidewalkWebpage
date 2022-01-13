@@ -31,6 +31,7 @@ function Card (params, imageUrl, modal) {
         canvas_width: undefined,
         canvas_height: undefined,
         severity: undefined,
+        validation: undefined,
         temporary: undefined,
         description: undefined,
         user_validation: undefined,
@@ -122,6 +123,11 @@ function Card (params, imageUrl, modal) {
             let severityHolder = new SeverityDisplay(cardSeverity, properties.severity);
             cardData.appendChild(cardSeverity);
         }
+
+        let validation = document.createElement('div');
+        validation.className = 'card-severity';
+        let validationHolder = new ValidationDisplay(validation, properties.validation);
+        cardData.appendChild(validation);
 
         // Create the div to store the tags related to a card. Tags won't be populated until card is added to the DOM.
         let cardTags = document.createElement('div');

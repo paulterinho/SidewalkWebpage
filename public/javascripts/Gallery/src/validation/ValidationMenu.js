@@ -73,7 +73,7 @@ function ValidationMenu(refCard, uiCardImage, cardProperties, modal, onExpandedV
             "validate-disagree": overlay.find("#gallery-card-disagree-button"),
             "validate-not-sure": overlay.find("#gallery-card-not-sure-button")
         };
-
+        
         // If the signed in user had already validated this label before loading the page, style the card to show that.
         if (currCardProperties !== null && currCardProperties.user_validation) {
             if (onExpandedView) showValidationOnExpandedView(currCardProperties.user_validation);
@@ -192,6 +192,27 @@ function ValidationMenu(refCard, uiCardImage, cardProperties, modal, onExpandedV
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
+            },
+            error: function (result) {
+                console.error(result);
+            }
+        });
+    }
+
+    /**
+     * Consolidate data on the validation and submit as a POST request.
+     * @private
+     */
+     function getValidation(label_id) {
+        $.ajax({
+            async: true,
+            contentType: 'application/json; charset=utf-8',
+            url: `/label/validate/${label_id}`,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result)
+                return result
             },
             error: function (result) {
                 console.error(result);

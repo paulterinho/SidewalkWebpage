@@ -176,6 +176,19 @@ class ValidationTaskController @Inject() (implicit val env: Environment[User, Se
   }
 
   /**
+   * Get validation for a label.
+   */
+  def getLabelMapValidation(labelId: Int) = UserAwareAction.async { implicit request =>
+    request.identity match {
+      case Some(user) =>
+        val validation = LabelValidationTable.getValidationCountsForLabel(labelId)
+        Future.successful(Ok(validation))
+      case None =>
+        Future.successful(Redirect(s"/anonSignUp?url=/label/validate/$labelId"))
+    }
+  }
+
+  /**
     * Handles a comment POST request. It parses the comment and inserts it into the comment table.
     */
   def postLabelMapComment = UserAwareAction.async(BodyParsers.parse.json) { implicit request =>
