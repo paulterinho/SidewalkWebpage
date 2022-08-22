@@ -1,4 +1,5 @@
 # --- !Ups
+SELECT setval('tag_tag_id_seq', (SELECT MAX(tag_id) from "tag"));
 INSERT INTO tag VALUES ( 26, 3, 'construction' );
 INSERT INTO tag VALUES ( 27, 3, 'sign' );
 INSERT INTO tag VALUES ( 28, 4, 'brick' );
