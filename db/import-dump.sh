@@ -1,6 +1,7 @@
 #!/bin/bash
 
 psql -v ON_ERROR_STOP=1 -U postgres -d postgres <<-EOSQL
+
     SELECT pg_terminate_backend(pg_stat_activity.pid)
     FROM pg_stat_activity
     WHERE (pg_stat_activity.datname = '$1')
@@ -10,6 +11,7 @@ psql -v ON_ERROR_STOP=1 -U postgres -d postgres <<-EOSQL
     DROP SCHEMA IF EXISTS sidewalk;
 
     CREATE DATABASE "$1" WITH OWNER=sidewalk TEMPLATE template0;
+    CREATE EXTENSION POSTGIS;
     GRANT ALL PRIVILEGES ON DATABASE "$1" to sidewalk;
 
     ALTER USER sidewalk SUPERUSER;
