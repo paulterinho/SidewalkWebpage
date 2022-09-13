@@ -113,3 +113,6 @@ db/dump
 
 # ignore folders used to scale no-imagery python script
 check*/
+
+# ignore the .env file to keep sensitive info from being committed
+.env
